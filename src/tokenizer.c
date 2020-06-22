@@ -82,3 +82,9 @@ char *copy_str(char *inStr, short len)
     }
   return newWord;
 }
+char **tokenizer(char* str)
+{
+  int wordCount = count_words(str);
+  char tokenizer[wordCount+1];
+  char *ptr = tokenizer;
+}
