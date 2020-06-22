@@ -87,4 +87,9 @@ char **tokenizer(char* str)
   int wordCount = count_words(str);
   char tokenizer[wordCount+1];
   char *ptr = tokenizer;
+  for(int i =0;i<wordCount;i++)
+    {
+      cha
+      tokenizer[i]
+    }
 }
