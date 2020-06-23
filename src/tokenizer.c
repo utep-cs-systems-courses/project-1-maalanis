@@ -119,13 +119,14 @@ char *copy_str(char *inStr, short len)
 {
   char *new_word;
   new_word =(char *) malloc(len +1);
-  
+  char *final_word;
+  final_word = new_word;
   int i =0;
   while(inStr[i]!='\0')
     {
 
-      new_word = &inStr[i];
-      
+      *(&new_word) =inStr[i];
+      printf("\nfinal_word: %c", final_word);
       printf("\nnew_word: %c", new_word);
       
       new_word++;
@@ -134,20 +135,16 @@ char *copy_str(char *inStr, short len)
       
     }
   
-  printf("\nnew_word: %c", new_word);
-  char *ptr;
-  ptr = new_word;
+  printf("\nnew_word Final: %c", *final_word);
+  
  
-  
-  printf("\nptr: %c", ptr);
-  
   return new_word;
 }/**
 char **tokenizer(char* str)
 {
-  int wordCount = count_words(str);
-  char tokenizer[wordCount+1];
-  char *ptr = tokenizer;
+  int wordCount = Count_Words(Str);
+  Char Tokenizer[Wordcount+1];
+  Char *Ptr = tokenizer;
   char *copyString = *copy_str
   for(int i =0;i<wordCount;i++)
     {
