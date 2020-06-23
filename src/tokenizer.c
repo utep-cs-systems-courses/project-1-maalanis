@@ -6,7 +6,7 @@
 /*#include<tokenizer.h>*/
 int space_char(char c);
 int non_space_char(char c);
-char word_start(char *str);
+char *word_start(char *str);
 char *word_terminator(char *str);
 int count_words(char *str);
 char *copy_str(char *inStr, short len);
@@ -55,7 +55,7 @@ int space_char(char c)
   if(c == ' ' || c == '\t')
     return 1;
 
-  if(c=='0')
+  if(c=='\0')
     return 0;
   return 0;
 }
@@ -66,7 +66,7 @@ int non_space_char(char c)
   else return 1;
 }
 
-char word_start(char *str)
+char *word_start(char *str)
 {
   char previous = '0';
   int i =0;
@@ -90,12 +90,12 @@ char word_start(char *str)
 
 char  *word_terminator(char *word)
 {
-  while(*word != '\0')
+  while(non_space_char(*word))
     {
       word++;
     }
-  char *terminator_pointer = word;
-  return terminator_pointer; 
+  
+  return word; 
 }
 int count_words(char* str)
 {
