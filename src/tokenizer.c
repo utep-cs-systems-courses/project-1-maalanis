@@ -119,16 +119,17 @@ char *copy_str(char *inStr, short len)
 {
   char *new_word;
   new_word =(char *) malloc(len +1);
-  char **temp;
-  temp= new_word;
+  
   int i =0;
   while(inStr[i]!='\0')
     {
 
-      new_word = inStr[i];
-      printf("\ntemp: %c", temp);
+      new_word = &inStr[i];
+      
       printf("\nnew_word: %c", new_word);
+      
       new_word++;
+      
       i++;
       
     }
@@ -137,7 +138,7 @@ char *copy_str(char *inStr, short len)
   char *ptr;
   ptr = new_word;
  
-  printf("\ntemp: %c", temp);
+  
   printf("\nptr: %c", ptr);
   
   return new_word;
