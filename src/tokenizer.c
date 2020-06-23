@@ -69,21 +69,15 @@ int non_space_char(char c)
 char *word_start(char *str)
 {
   char previous = '0';
-  int i =0;
-  while(str[i]!= '\0')
+  
+  char *ptr = word_terminator(str);
+  while(space_char(ptr))
     {
-      if(str[i] == ' ')
-	{
-	  previous = str[i];
-	}
-      if(str[i] !=' ' && previous == ' ')
-	{
-	  
-	  return *(&str[i]);
-
-	}
-     
-      i++;
+      ptr++;
+    }
+  if(non_space_char(ptr)
+     return &ptr;
+      
     }
   
 }
