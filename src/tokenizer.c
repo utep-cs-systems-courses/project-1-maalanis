@@ -94,7 +94,7 @@ char  *word_terminator(char *word)
     {
       word++;
     }
-  char *terminator_pointer = word++;
+  char *terminator_pointer = word;
   return terminator_pointer; 
 }
 int count_words(char* str)
@@ -119,25 +119,13 @@ char *copy_str(char *inStr, short len)
 {
   char *new_word;
   new_word =(char *) malloc(len +1);
-  char *final_word;
-  final_word = new_word;
+  
   int i =0;
-  while(inStr[i]!='\0')
+  for(;i<len+1;i++)
     {
-
-      *(&new_word) =inStr[i];
-      printf("\nfinal_word: %c", final_word);
-      printf("\nnew_word: %c", new_word);
-      
-      new_word++;
-      
-      i++;
-      
+      new_word[i] =inStr[i];   
     }
-  
-  printf("\nnew_word Final: %c", *final_word);
-  
- 
+  new_word[i] = '\0';
   return new_word;
 }/**
 char **tokenizer(char* str)
