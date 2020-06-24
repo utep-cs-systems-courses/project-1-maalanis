@@ -75,7 +75,7 @@ char *word_start(char *str)
     }
   return ptr; 
  } 
-}
+
 
 char  *word_terminator(char *word)
 {
