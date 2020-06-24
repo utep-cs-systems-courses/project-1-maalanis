@@ -68,18 +68,13 @@ int non_space_char(char c)
 
 char *word_start(char *str)
 {
-  char previous = '0';
-  
   char *ptr = word_terminator(str);
-  while(space_char(ptr))
+  while(space_char(*ptr))
     {
       ptr++;
     }
-  if(non_space_char(ptr)
-     return &ptr;
-      
-    }
-  
+  return ptr; 
+ } 
 }
 
 char  *word_terminator(char *word)
