@@ -131,7 +131,7 @@ char **tokenize(char* str)
 {
   int word_count = count_words(str);
   /*char *tokens[word_count+1];*/
-  char **tokens =malloc (word_count + 1);
+  char **tokens =malloc (sizeof(char *)*(word_count + 1));
   
   char *beg = str;
   char *end =  word_terminator(beg);
