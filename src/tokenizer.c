@@ -10,6 +10,8 @@ char *word_start(char *str);
 char *word_terminator(char *str);
 int count_words(char *str);
 char *copy_str(char *inStr, short len);
+char **tokenize(char *str);
+void print_tokens(char **tokens);
 int main()
 {
   char str[20];
@@ -44,9 +46,12 @@ int main()
   printf("\nLength of string: %d", length_final);
   printf("\nspaces : %d", spaces);
   printf("\nnon_spaces: %d", non_spaces);
-  printf("\nnext space char: %c", next_space);
+  printf("\nnext space char: %c", *next_space);
   printf("\nnumber of words: %d", word_count);
-  /*  printf("\n copy String: %c", *copy);*/
+  printf("\ncopy String: %c", *copy);
+  char **tokens;
+  tokens= tokenize(str);
+  print_tokens(tokens);
   return 0;
 }
 
@@ -61,18 +66,23 @@ int space_char(char c)
 }
 int non_space_char(char c)
 {
-  if( c == ' ' || c == '\t')
+  if( c == ' ' || c == '\t' || c == '\0')
     return 0;
   else return 1;
 }
 
 char *word_start(char *str)
 {
-  char *ptr = word_terminator(str);
+  char *ptr = str;
+  while(non_space_char(*ptr))
+    {
+      ptr++;
+    }
   while(space_char(*ptr))
     {
       ptr++;
     }
+  
   return ptr; 
  } 
 
@@ -116,25 +126,43 @@ char *copy_str(char *inStr, short len)
     }
   new_word[i] = '\0';
   return new_word;
-}/**
-char **tokenizer(char* str)
-{
-  int wordCount = Count_Words(Str);
-  Char Tokenizer[Wordcount+1];
-  Char *Ptr = tokenizer;
-  char *copyString = *copy_str
-  for(int i =0;i<wordCount;i++)
-    {
-      char *tmp;
-      *tmp = str;
-      int wordLength = 0;
-      while(space_char(tmp)>0)
-	{
-	  wordLength++;
-	}
-      char *token = malloc(wordLength *2+1);
-      while(s
-      tokenizer[i]
-    }
 }
- **/
+char **tokenize(char* str)
+{
+  int word_count = count_words(str);
+  /*char *tokens[word_count+1];*/
+  char **tokens;
+  
+  char *beg = str;
+  char *end =  word_terminator(beg);
+  int i =0;
+  for(;i<word_count;i++)
+    {
+      
+      int word_length = end - beg;
+      char *token = (char *) malloc(word_length + 1);
+      token = copy_str(beg, word_length);
+      /*    tokens[i]= &token; */ 
+      tokens++;
+      beg = word_start(beg);
+      end = word_terminator(beg);
+      
+    }
+  /*tokens[i] = '0';*/
+  tokens++;
+  char zer = '0';
+  char *last = &zer;
+  tokens = &last;
+  
+  
+  return tokens;
+}
+
+void print_tokens(char **tokens)
+{
+  printf("test: %c", tokens);
+    
+  
+
+}
+ 
