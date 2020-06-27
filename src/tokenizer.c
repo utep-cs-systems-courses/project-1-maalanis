@@ -3,15 +3,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
-/*#include<tokenizer.h>*/
-int space_char(char c);
-int non_space_char(char c);
-char *word_start(char *str);
-char *word_terminator(char *str);
-int count_words(char *str);
-char *copy_str(char *inStr, short len);
-char **tokenize(char *str);
-void print_tokens(char **tokens);
+#include "tokenizer.h"
+
 int main()
 {
   char str[20];
@@ -43,12 +36,7 @@ int main()
 
   copy = copy_str(str, length_final);
   
-  printf("\nLength of string: %d", length_final);
-  printf("\nspaces : %d", spaces);
-  printf("\nnon_spaces: %d", non_spaces);
-  printf("\nnext space char: %c", *next_space);
-  printf("\nnumber of words: %d", word_count);
-  printf("\ncopy String: %c", *copy);
+  
   char **tokens;
   tokens= tokenize(str);
   print_tokens(tokens);
@@ -140,30 +128,64 @@ char **tokenize(char* str)
     {
       
       int word_length = end - beg;
-      char *token = (char *) malloc(word_length + 1);
-      token = copy_str(beg, word_length);
-      /*    tokens[i]= &token; */
-      tokens = &token;
-      tokens++;
+      
+      char *token = copy_str(beg, word_length);
+     
+      tokens[i] = token;
+      
       beg = word_start(beg);
       end = word_terminator(beg);
       
     }
-  /*tokens[i] = '0';*/
-  tokens++;
-  char zer = '0';
-  char *last = &zer;
-  tokens = &last;
-  
+  char var = '0';
+  char *terminator = &var;
+  tokens[i] = terminator;
   
   return tokens;
 }
 
 void print_tokens(char **tokens)
 {
-  printf("test: %c", tokens);
+  
+  int i=0;
+  int j=0;
+  printf("Prints 0 the final value in the token: %c", tokens[2][j]);
+  /*TODO: tokens[2][0] = '0' is not being checked in the while condition 
+    making it go further in the loop until error */
+  
+  while(tokens[i][j]!='0')
+    {
+      if(tokens[i][j] == '0') printf("here");/*used for test purposes*/
+     
+      printf("i and J: %d %d", i, j);
+      printf("token #%d ", i);
+      while(tokens[i][j] != '\0')
+	{
+
+	
+	  printf("%c", tokens[i][j]);
+	  j++;
+	}
+      printf("\n");
+      i++;
+      j=0;
+      
+      
+      
+    }
+  
     
   
 
+}
+void free_tokens(char** tokens)
+{
+  char *ptr = *tokens;
+  while(ptr != NULL)
+    {
+      free(ptr);
+      ptr++;
+    }
+  free(ptr);
 }
  
