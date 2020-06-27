@@ -11,7 +11,7 @@ int main()
   printf("\n enter string: ");
   scanf("%[^\n]", str);
 
-  printf("\nYou have entered: %s", str);
+  printf("\nYou have entered: %s\n", str);
 
   int length = strlen(str);
   int length_final =0;
@@ -149,11 +149,11 @@ void print_tokens(char **tokens)
   
   int i=0;
   int j=0;
-  printf("Prints 0 the final value in the token: %c", tokens[2][j]);
+  printf("Prints 0 the final value in the token: %c\n", tokens[2][j]);
   /*TODO: tokens[2][0] = '0' is not being checked in the while condition 
     making it go further in the loop until error */
   
-  while(tokens[i][j]!='0')
+  while(tokens[i][j]!=NULL)
     {
       if(tokens[i][j] == '0') printf("here");/*used for test purposes*/
      
