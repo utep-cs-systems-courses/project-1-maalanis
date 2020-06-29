@@ -4,13 +4,18 @@
 #include <stdio.h>
 List* init_history()
 {
-  List *head;
+  List *head=NULL;
+  head = (List *) malloc (sizeof(List));
+  head->root->id = 0;
+  
+  
+  
  
-  /*  
+  /*
   head->root->id = 0;
   printf("Test %d",head->root->id);
-  head->root->next = NULL;
   */
+  
  
   return head;
   
