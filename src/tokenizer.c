@@ -4,42 +4,55 @@
 #include<stdio.h>
 #include<string.h>
 #include "tokenizer.h"
-
+#include "history.c"
 int main()
 {
   char str[20];
-  printf("\n enter string: ");
-  scanf("%[^\n]", str);
-
-  printf("\nYou have entered: %s\n", str);
-
-  int length = strlen(str);
-  int length_final =0;
-  int spaces = 0;
-  int non_spaces =0;
-  for(int i =0; i<length; i++)
+  printf("enter string:");
+  scanf("%[^\n]", &str);
+   List *history = init_history();
+  while(strcmp(str, "quit") !=0)
     {
-      if(space_char(str[i])>0)
-	spaces++;
 
-      if(non_space_char(str[i])>0)
-	non_spaces++;
-      if(str[i] != ' ')
-	length_final++;
+      
+      printf("\nYou have entered: %s\n", str);
+      int length = strlen(str);
+      
+            
+	    
+      /* add_history(history,str);*/
+      if(strcmp(str, "!3") ==0)
+	{
+	  /*  print_history(history);*/
+	}
+      int length_final =0;
+
+      int spaces = 0;
+      int non_spaces =0;
+      for(int i =0; i<length; i++)
+        {
+          if(space_char(str[i])>0)
+	    spaces++;
+          if(non_space_char(str[i])>0)
+	    non_spaces++;
+          if(str[i] != ' ')
+   	    length_final++;
+        }
+      char *ptr;
+      char *next_space;
+      ptr = str;
+      next_space = word_start(str);
+      char *copy;
+      int word_count = count_words(str);
+      copy = copy_str(str, length_final);
+      char **tokens;
+      tokens= tokenize(str);
+      print_tokens(tokens);
+
+      printf("Enter string:");
+      scanf(" %[^\n]", &str);
+      
     }
-  char *ptr;
-  char *next_space;
-  ptr = str;
-  next_space = word_start(str);
-  char *copy;
-  int word_count = count_words(str);
-
-  copy = copy_str(str, length_final);
-  
-  
-  char **tokens;
-  tokens= tokenize(str);
-  print_tokens(tokens);
   return 0;
 }
 
@@ -118,7 +131,7 @@ char *copy_str(char *inStr, short len)
 char **tokenize(char* str)
 {
   int word_count = count_words(str);
-  /*char *tokens[word_count+1];*/
+  
   char **tokens =malloc (sizeof(char *)*(word_count + 1));
   
   char *beg = str;
@@ -149,16 +162,13 @@ void print_tokens(char **tokens)
   
   int i=0;
   int j=0;
-  printf("Prints 0 the final value in the token: %c\n", tokens[2][j]);
+  
   /*TODO: tokens[2][0] = '0' is not being checked in the while condition 
     making it go further in the loop until error */
   
   while(tokens[i][j]!=NULL)
     {
-      if(tokens[i][j] == '0') printf("here");/*used for test purposes*/
-     
-      printf("i and J: %d %d", i, j);
-      printf("token #%d ", i);
+      printf("Token #%d: ", i);      
       while(tokens[i][j] != '\0')
 	{
 

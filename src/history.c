@@ -1,21 +1,54 @@
+
 #include "history.h"
 #include <stdlib.h>
 #include <stdio.h>
 List* init_history()
 {
-  struct s_List list;
+  List *head;
+ 
+  /*  
+  head->root->id = 0;
+  printf("Test %d",head->root->id);
+  head->root->next = NULL;
+  */
+ 
+  return head;
   
 }
 
 void add_history(List *list, char *str)
 {
-  
-  while(list->root->next != NULL)
+  List *ptr = list;
+  if(ptr == NULL)
+    printf("heeere");
+  /*
+  while(ptr->root->next !=NULL)
     {
-      list->root = list->root->next;
-      
+      ptr->root = ptr->root->next;
     }
+  */
+  int id = 0;
+      
+
+      struct s_Item newItem;
+      newItem.str = str;
+      printf("test %s", newItem.str);
+      newItem.id = id+1;
+      printf("test 2 %d", newItem.id);
+      struct s_Item *next = NULL;
+      newItem.next = next;
+      ptr->root->next = &newItem;
+      
   
+  
+  /*
+  struct s_Item newItem;
+  newItem.str = str;
+  printf("%c", str);
+  newItem.id = list->root->id+1;
+  printf("%d", newItem.id);
+  list->root->next = &newItem;
+  */
 }
 
 char *get_history(List *list, int id)
