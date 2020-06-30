@@ -1,4 +1,6 @@
-
+//tokenizer file
+//this program reads a string, and stores it in a allocated memory
+//that is read inside an array of pointers 
 
 #include<stdlib.h>
 #include<stdio.h>
@@ -10,25 +12,29 @@ int main()
   char str[20];
   printf("enter string:");
   scanf("%[^\n]", &str);
-   List *history = init_history();
-  while(strcmp(str, "quit") !=0)
+  
+  // Initialize the history pointer.
+  List *history = init_history();
+  
+  // Quit sequence
+  while(strcmp(str, "quit") !=0) 
     {
-
-      
       printf("\nYou have entered: %s\n", str);
       int length = strlen(str);
       
-            
-	    
+      // Adds the input string to the history list
       add_history(history,str);
+      
+      // Prints the history with command '!3'
       if(strcmp(str, "!3") ==0)
 	{
 	  print_history(history);
 	}
       int length_final =0;
-
       int spaces = 0;
       int non_spaces =0;
+
+      // For loop counts spaces and non_spaces
       for(int i =0; i<length; i++)
         {
           if(space_char(str[i])>0)
@@ -38,6 +44,7 @@ int main()
           if(str[i] != ' ')
    	    length_final++;
         }
+      
       char *ptr;
       char *next_space;
       ptr = str;
@@ -55,7 +62,7 @@ int main()
     }
   return 0;
 }
-
+// Returns number of spaces
 int space_char(char c)
 {
   if(c == ' ' || c == '\t')
@@ -65,13 +72,14 @@ int space_char(char c)
     return 0;
   return 0;
 }
+// Returns non space characters
 int non_space_char(char c)
 {
   if( c == ' ' || c == '\t' || c == '\0')
     return 0;
   else return 1;
 }
-
+// returns pointer to the start of the next word after space
 char *word_start(char *str)
 {
   char *ptr = str;
@@ -87,7 +95,7 @@ char *word_start(char *str)
   return ptr; 
  } 
 
-
+// Returns pointer to the end of a word
 char  *word_terminator(char *word)
 {
   while(non_space_char(*word))
@@ -97,6 +105,7 @@ char  *word_terminator(char *word)
   
   return word; 
 }
+// Returns integer of words in str
 int count_words(char* str)
 {
   int count = 0;
@@ -114,7 +123,7 @@ int count_words(char* str)
   
   return count;
 }
-
+// Returns pointer of an allocated copy of inStr till lenght len
 char *copy_str(char *inStr, short len)
 {
   char *new_word;
@@ -128,32 +137,33 @@ char *copy_str(char *inStr, short len)
   new_word[i] = '\0';
   return new_word;
 }
+
+// Returns double pointer with tokens in format:
+//tokens[0] = "hello\0"
+//tokens[1] = "world\0"
+//tokens[2] = "0"
 char **tokenize(char* str)
 {
   int word_count = count_words(str);
-  
   char **tokens =malloc (sizeof(char *)*(word_count + 1));
-  
   char *beg = str;
   char *end =  word_terminator(beg);
-  int i =0;
+  int i =0;  
   for(;i<word_count;i++)
     {
-      
-      int word_length = end - beg;
-      
+      int word_length = end - beg; // Subtracts pointers to copy word from string
       char *token = copy_str(beg, word_length);
-     
       tokens[i] = token;
-      
-      beg = word_start(beg);
+
+      // Switches pointers for next copy_str
+      beg = word_start(beg); 
       end = word_terminator(beg);
-      
     }
+
+  // Make last index of tokenz === "0"
   char var = '0';
   char *terminator = &var;
   tokens[i] = terminator;
-  
   return tokens;
 }
 
@@ -163,31 +173,21 @@ void print_tokens(char **tokens)
   int i=0;
   int j=0;
   
-  /*TODO: tokens[2][0] = '0' is not being checked in the while condition 
-    making it go further in the loop until error */
   
   while(tokens[i][j]!=NULL)
     {
       printf("Token #%d: ", i);      
       while(tokens[i][j] != '\0')
 	{
-
-	
 	  printf("%c", tokens[i][j]);
 	  j++;
 	}
       printf("\n");
       i++;
       j=0;
-      
-      
-      
     }
-  
-    
-  
-
 }
+// Free the allocated space
 void free_tokens(char** tokens)
 {
   char *ptr = *tokens;
