@@ -20,10 +20,10 @@ int main()
       
             
 	    
-      /* add_history(history,str);*/
+      add_history(history,str);
       if(strcmp(str, "!3") ==0)
 	{
-	  /*  print_history(history);*/
+	  print_history(history);
 	}
       int length_final =0;
 

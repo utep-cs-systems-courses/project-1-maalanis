@@ -5,8 +5,12 @@
 List* init_history()
 {
   List *head=NULL;
+  Item *data = NULL;
   head = (List *) malloc (sizeof(List));
+  head->root = (Item *) malloc (sizeof(Item));
   head->root->id = 0;
+  head->root->next = NULL;
+  head->root->str = NULL;
   
   
   
@@ -24,25 +28,24 @@ List* init_history()
 void add_history(List *list, char *str)
 {
   List *ptr = list;
-  if(ptr == NULL)
-    printf("heeere");
-  /*
-  while(ptr->root->next !=NULL)
+  Item *root_ptr = ptr->root;
+  
+  while(root_ptr->next !=NULL)
     {
-      ptr->root = ptr->root->next;
+     
+      root_ptr = root_ptr->next;
     }
-  */
-  int id = 0;
+  
+  
       
-
-      struct s_Item newItem;
-      newItem.str = str;
-      printf("test %s", newItem.str);
-      newItem.id = id+1;
-      printf("test 2 %d", newItem.id);
-      struct s_Item *next = NULL;
-      newItem.next = next;
-      ptr->root->next = &newItem;
+  Item *data = (Item *) malloc(sizeof(Item));
+  data->str = str; 
+  data->id = root_ptr->id+1;
+  printf("test: %d", data->id);
+  data->next = NULL;
+  root_ptr->next = data;
+  
+     
       
   
   
@@ -64,16 +67,19 @@ char *get_history(List *list, int id)
 
 void print_history(List *list)
 {
-  
-  while(list->root != NULL)
+  List *ptr = list;  
+  while(ptr->root->next != NULL)
     {
-      char *word = list->root->str;
+      char *word = ptr->root->str;
+      printf("history: %s",word);
+      ptr->root = ptr->root->next;
+      /*
       while(*word != '\0')
 	{
 	  printf("%c", word);
 	  word++;
 	}
-      
+      */
       printf("\n");
      
     }
