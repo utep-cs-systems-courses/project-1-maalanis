@@ -11,33 +11,31 @@ List* init_history()
 {
   List *head=NULL;
   head = (List *) malloc (sizeof(List));
+  
   head->root = (Item *) malloc (sizeof(Item));
+  /*
   head->root->id = 0;
   head->root->next = NULL;
-  head->root->str = NULL; 
+  head->root->str = NULL;*/ 
   return head;
 }
 
 //adds a pointer to an allocated space of Item
 void add_history(List *list, char *str)
-{
-  List *head = list;
-  Item *ptr = head->root;
-  int count =0;
-  while(ptr->next!=NULL)
+{    
+  List *ptr = list;
+  Item *tmp = ptr->root;
+  while(tmp->next != NULL)
     {
-      printf("YO: %s", ptr->str);
-      printf("Test: %d", ptr->id);
-      ptr = ptr->next;
-      count++;
+      printf("Id: %d Str: %s\n", tmp->id, tmp->str);
+      tmp = tmp->next;
+      
     }
-      
-      ptr->next = (Item *) malloc (sizeof(Item));
-      ptr->next->id = count;
-      ptr->next->str = str;
-      
-      ptr->next->next = NULL;
- 
+  tmp->next = (Item *) malloc (sizeof(Item));
+  tmp->next->id = tmp->id+1;
+  tmp->next->str = str;
+  printf("String inserted: %s \n", tmp->next->str);
+    
 }
 //returns pointer to the word in the position id
 char *get_history(List *list, int id)
