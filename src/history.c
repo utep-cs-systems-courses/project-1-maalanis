@@ -12,11 +12,7 @@ List* init_history()
   List *head=NULL;
   head = (List *) malloc (sizeof(List));
   
-  head->root = (Item *) malloc (sizeof(Item));
-  /*
-  head->root->id = 0;
-  head->root->next = NULL;
-  head->root->str = NULL;*/ 
+  head->root = (Item *) malloc (sizeof(Item)); 
   return head;
 }
 
@@ -27,20 +23,33 @@ void add_history(List *list, char *str)
   Item *tmp = ptr->root;
   while(tmp->next != NULL)
     {
-      printf("Id: %d Str: %s\n", tmp->id, tmp->str);
-      tmp = tmp->next;
-      
+      tmp = tmp->next; 
     }
   tmp->next = (Item *) malloc (sizeof(Item));
   tmp->next->id = tmp->id+1;
   tmp->next->str = str;
+  if(list->root->str == NULL){
+    list->root = list->root = list->root->next;
+  }
   printf("String inserted: %s \n", tmp->next->str);
     
 }
 //returns pointer to the word in the position id
 char *get_history(List *list, int id)
 {
-  return list->root[id].str;
+  
+  List *head = list;
+  Item *ptr = head->root;
+  while(ptr != NULL)
+    {
+      if(ptr->id == id-48)
+	{
+	  printf("String at ID: %d is %s\n", id-48, ptr->str);
+	return ptr->str;
+	}
+      ptr = ptr->next;
+    }
+  return list->root->str;
 }
 
 //prints history
@@ -50,7 +59,7 @@ void print_history(List *list)
   Item *ptr = head->root;
   while(ptr != NULL)
     {
-      printf("History: %s", ptr->str);
+   
       ptr = ptr->next;
       printf("\n");
     }

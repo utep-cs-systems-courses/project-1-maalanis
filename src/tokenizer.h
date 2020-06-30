@@ -27,6 +27,11 @@ int count_words(char *str);
    containing <len> chars from <inStr> */
 char *copy_str(char *inStr, short len);
 
+/* returns 0 if same string */
+int compare(char *str1, char*str2);
+
+
+
 /* Returns a freshly allocated zero-terminated vector of freshly allocated 
    space-separated tokens from zero-terminated str.
 

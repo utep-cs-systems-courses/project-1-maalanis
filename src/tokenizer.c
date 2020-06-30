@@ -17,19 +17,10 @@ int main()
   List *history = init_history();
   
   // Quit sequence
-  while(strcmp(str, "quit") !=0) 
+  while(compare(str, "EOF") != 0) 
     {
       printf("\nYou have entered: %s\n", str);
-      int length = strlen(str);
-      
-      // Adds the input string to the history list
-      add_history(history,str);
-      
-      // Prints the history with command '!3'
-      if(strcmp(str, "!3") ==0)
-	{
-	  print_history(history);
-	}
+      int length = strlen(str);     
       int length_final =0;
       int spaces = 0;
       int non_spaces =0;
@@ -52,9 +43,25 @@ int main()
       char *copy;
       int word_count = count_words(str);
       copy = copy_str(str, length_final);
+      if(compare(copy, "!*") !=0 && copy[0]-'!' != 0)
+	{
+	  add_history(history, copy);
+	}
+      if(compare(copy,"!*") ==0)
+	{
+	  print_history(history);
+	}
+      if(copy[0] - '!' == 0 && copy[1]>=48 && copy[1]<=57)
+	{
+	  get_history(history, copy[1]);
+
+	}
       char **tokens;
-      tokens= tokenize(str);
-      print_tokens(tokens);
+      if(compare(copy, "!*") !=0 && copy[0]-'!' != 0){
+	tokens=tokenize(str);
+	print_tokens(tokens);
+      }
+      
 
       printf("Enter string:");
       scanf(" %[^\n]", &str);
@@ -186,6 +193,8 @@ void print_tokens(char **tokens)
       i++;
       j=0;
     }
+  printf("\n");
+
 }
 // Free the allocated space
 void free_tokens(char** tokens)
@@ -199,3 +208,17 @@ void free_tokens(char** tokens)
   free(ptr);
 }
  
+int compare (char *str1, char *str2)
+{
+  int i =0;
+  while(str1[i] == str2[i])
+    {
+      if(str1[i]== '\0' && str2[i] == '\0')
+	break;
+
+      i++;
+      
+    }
+  return str1[i] - str2[i];
+
+}
