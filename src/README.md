@@ -10,6 +10,7 @@ Example: String entered = Hello World!
 Display: 
 
 Token 1: Hello
+
 Token 2: World!
 
 By entering !* you print all of the strings you entered
